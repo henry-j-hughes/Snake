@@ -199,7 +199,7 @@ def drawGrid(surface, inverted):
 
 def multiplayer():
     pygame.mixer.init()
-    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.set_volume(0.2)
     pygame.init()
 
     hstext = open("hstext.txt")
@@ -207,9 +207,12 @@ def multiplayer():
 
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((screen_width, screen_height), 0, 32)
+    pygame.display.set_caption('Snake')
+    a = pygame.image.load('assets/icon/icon.jpg')
+    pygame.display.set_icon(a)
 
-    # soundtrack
-    mixer.music.load('hed.wav')
+    # soundtracks
+    mixer.music.load('assets/music/soundtrack/st1.wav')
     mixer.music.play(-1)
 
     surface = pygame.Surface(screen.get_size())
@@ -219,8 +222,8 @@ def multiplayer():
     snake = Snake()
     food = Food()
 
-    myfont = pygame.font.Font("8-BitMadness.ttf",36, bold=True)
-    mylargefont = pygame.font.Font("8-BitMadness.ttf",56, bold=True)
+    myfont = pygame.font.Font("assets/fonts/8-BitMadness.ttf",36, bold=True)
+    mylargefont = pygame.font.Font("assets/fonts/8-BitMadness.ttf",56, bold=True)
 
     while (True):
         clock.tick(5 + round((snake.score_p1 + snake.score_p2)/8, 1))
@@ -249,7 +252,7 @@ def multiplayer():
 
         # snake 1 eats a piece of food
         if snake.get_head_position_p1() == food.position:
-            eating_sound = mixer.Sound("eat.mp3")
+            eating_sound = mixer.Sound("assets/music/sound_effects/eat/eat.mp3")
             eating_sound.play()
             snake.length_p1 += 1
             snake.score_p1 += 1
@@ -257,7 +260,7 @@ def multiplayer():
 
         # snake 2 eats a piece of food
         if snake.get_head_position_p2() == food.position:
-            eating_sound = mixer.Sound("eat.mp3")
+            eating_sound = mixer.Sound("assets/music/sound_effects/eat/eat.mp3")
             eating_sound.play()
             snake.length_p2 += 1
             snake.score_p2 += 1
@@ -318,7 +321,7 @@ def multiplayer():
 
         def centre_display(text, sound):
             if sound:
-                eating_sound = mixer.Sound("eat.mp3")
+                eating_sound = mixer.Sound("assets/music/sound_effects/eat/eat.mp3")
                 eating_sound.play()
 
             for i in range(0, 8):
@@ -351,8 +354,9 @@ def multiplayer():
                     time.sleep(result_display_time/8)
                     pygame.display.update()
 
+        # show scores on screen
         show_scores(False)
-
+        # update the screen display
         pygame.display.update()
 
 # This notation means main() will only run when this script is excecuted
